@@ -1,0 +1,38 @@
+#ALGORITHM A
+
+INPUT ThisItem
+Found ← False
+Current ← Start//the first item to consider is at position Start
+IF Current <> 0       //test for empty list
+  THEN
+    REPEAT
+    	IF ThisItem = Node[Current].Data  
+    	//dot notation is used to refer to the data part of the node
+      	THEN
+        	Found ← True
+        	OUTPUT “Found at position”, Current
+      	ELSE
+        	Current ← Node[Current].Pointer//ready to move to the next node
+    	ENDIF
+  	UNTIL Found = True OR Current = 0
+ENDIF
+
+IF Current = 0 
+  THEN
+    OUTPUT “Item was not found”
+ENDIF
+
+
+#ALGORITHM B
+
+FUNCTION FindNode(DataItem: <DATA TYPE>) RETURNS INTEGER   
+	//returns pointer to node
+  
+	CurrentNodePointer ← StartPointer  //start at beginning of list
+  WHILE CurrentNodePointer <> NullPointer  //not end of the list
+      AND List[CurrentNodePointer].Data <> DataItem //item not found
+    //follow the pointer to the next node
+    CurrentNodePointer ← List[CurrentNodePointer].Pointer
+	ENDWHILE
+  RETURN CurrentNodePointer //returns NullPointer if item not found
+ENDFUNCTION
