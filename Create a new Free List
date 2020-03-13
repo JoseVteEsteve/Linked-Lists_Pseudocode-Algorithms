@@ -1,0 +1,22 @@
+//Null pointer should be set to -1 if using an array element with index 0 
+CONSTANT NullPointer = 0
+
+//Declare record type to store data and pointer
+TYPE ListNode
+    DECLARE Data : STRING
+    DECLARE Pointer : INTEGER
+ENDTYPE
+
+DECLARE StartPointer : INTEGER
+DECLARE FreeListPointer : INTEGER
+DECLARE List[1 : N] OF ListNode
+
+PROCEDURE InitialiseList
+    StartPointer ← NullPointer //set start pointer
+    FreeListPointer ← 1  //set starting position of free list
+    FOR Index ← 1 TO N  - 1//link all nodes to make a free list
+      List[Index].Pointer ← Index + 1
+    NEXT Index
+		ENDFOR
+    List[N].Pointer ← NullPointer //last node of the free list
+ENDPROCEDURE
