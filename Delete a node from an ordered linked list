@@ -1,0 +1,20 @@
+PROCEDURE DeleteNode(DataItem:DataType)  //start at beginning of list
+  ThisNodePointer ← StartPointer
+  WHILE ThisNodePointer <> NullPointer //while not end of the list
+    	AND List[ThisNodePointer].Data <> DataItem  //and item not found
+    PreviousNodePointer ← ThisNodePointer    //remember this node
+    //follow the node to the next node
+    ThisNodePointer ← List[ThisNodePointer].Pointer
+  ENDWHILE
+  IF ThisNodePointer <> NullPointer    //node exists in list
+    THEN
+      IF ThisNodePointer = StartPointer //first node to be deleted
+        THEN
+          StartPointer ← List[StartPointer].Pointer
+        ELSE
+          List[PreviousNodePointer].Pointer ← List[ThisNodePointer].Pointer
+      ENDIF
+      List[ThisNodePointer].Pointer ← FreeListPointer
+      FreeListPointer ← ThisNodePointer
+  ENDIF
+ENDPROCEDURE
