@@ -1,0 +1,28 @@
+PROCEDURE InsertNode(NewItem:<DATA TYPE>)
+  IF FreeListPointer <> NullPointer
+    THEN   //there is space in the array
+      //take node from free list and store data item
+      NewNodePointer ← FreeListPointer
+      List[NewNodePointer].Data ← NewItem
+      FreeListPointer ← List[FreeListPointer].Pointer
+
+      //find insertion point
+      ThisNodePointer ← StartPointer
+      WHILE ThisNodePointer <> NullPointer AND List[ThisNodePointer].Data < NewItem DO
+				PreviousNodePointer ← ThisNodePointer    //remember this node
+        //follow the pointer to the next node
+				ThisNodePointer ← List[ThisNodePointer].Pointer
+   		ENDWHILE
+
+  	IF PreviousNodePointer = StartPointer
+    	THEN
+      	//insert new node at the start of the list
+      	List[NewNodePointer].Pointer ← StartPointer
+      	StartPointer ← NewNodePointer
+				
+    	ELSE   //insert new node between previous node and this node 
+      	List[NewNodePointer].Pointer ← List[PreviousNodePointer].Pointer
+  			List[PreviousNodePointer].Pointer ← NewNodePointer
+  	ENDIF
+	ENDIF
+ENDPROCEDURE
